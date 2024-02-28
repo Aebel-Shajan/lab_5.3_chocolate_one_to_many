@@ -8,6 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/chocolates")
@@ -28,5 +29,10 @@ public class ChocolateController {
     }
 
 
+    @GetMapping(value = "/{id}")
+    public ResponseEntity<Chocolate> getById(@PathVariable long id){
+       Chocolate chocolate = chocolateService.getById(id).get();
+       return new ResponseEntity<>(chocolate, HttpStatus.OK);
+    }
 
 }
