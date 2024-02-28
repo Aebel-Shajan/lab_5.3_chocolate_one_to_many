@@ -35,4 +35,9 @@ public class ChocolateController {
        return new ResponseEntity<>(chocolate, HttpStatus.OK);
     }
 
+    @GetMapping(value = "/cocoa")
+    public ResponseEntity<List<Chocolate>> getCocoaPercentageGreaterThan(@RequestParam int percentage) {
+        return new ResponseEntity<>(chocolateService.getCocoaPercentageGreaterThan(percentage), HttpStatus.OK);
+    }
+
 }
