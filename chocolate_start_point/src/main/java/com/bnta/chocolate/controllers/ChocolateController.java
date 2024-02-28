@@ -24,7 +24,12 @@ public class ChocolateController {
     }
 
     @GetMapping
-    public  ResponseEntity<List<Chocolate>> getAllChocolates() {
+    public  ResponseEntity<List<Chocolate>> getAllChocolates(@RequestParam Optional<Integer> percentage) {
+        List<Chocolate> chocolates;
+        if(percentage.isPresent()){
+            chocolates =  chocolateService.getCocoaPercentageGreaterThan(percentage.get());
+            return new ResponseEntity<>(chocolates, HttpStatus.OK);
+        }
         return new ResponseEntity<>(chocolateService.getAllChocolates(), HttpStatus.OK);
     }
 
@@ -35,9 +40,9 @@ public class ChocolateController {
        return new ResponseEntity<>(chocolate, HttpStatus.OK);
     }
 
-    @GetMapping(value = "/cocoa")
-    public ResponseEntity<List<Chocolate>> getCocoaPercentageGreaterThan(@RequestParam int percentage) {
-        return new ResponseEntity<>(chocolateService.getCocoaPercentageGreaterThan(percentage), HttpStatus.OK);
-    }
+//    @GetMapping(value = "/cocoa")
+//    public ResponseEntity<List<Chocolate>> getCocoaPercentageGreaterThan(@RequestParam int percentage) {
+//        return new ResponseEntity<>(chocolateService.getCocoaPercentageGreaterThan(percentage), HttpStatus.OK);
+//    }
 
 }
